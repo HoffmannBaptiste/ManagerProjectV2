@@ -1,0 +1,39 @@
+version: '3.7' # specify docker-compose version
+
+networks:
+  # Server network to hold database and backend
+  applinetwork: {}
+
+# Define the services/containers to be run
+services:
+  
+  database-app: # name of the third service
+    build: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: 8CFmTxG4r5oSS7IYvT2N
+      MYSQL_DATABASE: retest
+    ports:
+      - "3306:3306" # specify port forewarding
+    networks:
+      # Add the database service to the servernetwork.
+      - applinetwork
+
+  angular-app: # name of the first service
+    build: angular-app # specify the directory of the Dockerfile
+    ports:
+      - "4200:4200" # specify port forewarding
+    networks:
+      # Add the angular service to the servernetwork.
+      - applinetwork
+
+  express-app: #name of the second service
+    build: express-server # specify the directory of the Dockerfile
+    restart: always
+    ports:
+      - "3000:3000" #specify ports forewarding
+    networks:
+      # Add the express service to the servernetwork.
+      - applinetwork
+    depends_on:
+      - "database-app"
+    command: bash -c "./wait-for-it.sh --timeout=0 database-app:3306 && npm start"

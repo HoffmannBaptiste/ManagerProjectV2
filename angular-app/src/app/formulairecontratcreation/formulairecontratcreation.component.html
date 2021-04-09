@@ -1,0 +1,137 @@
+<div class="content">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card card-default">
+        <div class="card-header  justify-content-between">
+          <h1>Formulaire de création de contrat </h1>
+          <br>
+        </div>
+        <div class="form-footer pt-5 border-top"></div>
+        <div class="card-body">
+          <form>
+
+            <!-- Formulaire  Description haut de page + Nom projet -->
+            <form [formGroup]="formulaireForm">
+              <h2>Description : </h2>
+              <br>
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="ddate">Nom Demandeur*</label>
+
+                    <input class="form-control" type="text" formControlName="nomdemandeur"
+                    placeholder="Nom Demandeur"
+                    [ngClass]="{ 'is-invalid': submitted && f.nomdemandeur.errors }">
+                  <div *ngIf="submitted && f.nomdemandeur.errors" class="invalid-feedback">
+                    <div *ngIf="f.nomdemandeur.errors.required">Nom demandeur requis</div>
+                  </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="fname">Nom Entreprise*</label>
+                    <input class="form-control" type="text" formControlName="nomentreprise"
+                    placeholder="Nom Entreprise"
+                    [ngClass]="{ 'is-invalid': submitted && f.nomentreprise.errors }">
+                  <div *ngIf="submitted && f.nomentreprise.errors" class="invalid-feedback">
+                    <div *ngIf="f.nomentreprise.errors.required">Nom entreprise requis</div>
+                  </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+
+                    <label for="State">Code NOP</label>
+                    <input class="form-control" type="text" formControlName="codenop" placeholder="Codenop">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="Zip">Référence Client</label>
+                    <input class="form-control" type="text" formControlName="referenceclient"
+                      placeholder="Ref Client">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="State">Référence interne</label>
+                        <input class="form-control" type="text" formControlName="referenceinterne"
+                          placeholder="Ref Interne">
+            
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-footer pt-5 border-top"></div>
+              <h2>Intitulé du contrat</h2>
+              <br>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="fname">Nom Contrat *</label>
+                    <input class="form-control" type="text" formControlName="nomcontrat" placeholder="nom projet"
+                      [ngClass]="{ 'is-invalid': submitted && f.nomcontrat.errors }">
+                    <div *ngIf="submitted && f.nomcontrat.errors" class="invalid-feedback">
+                      <div *ngIf="f.nomcontrat.errors.required">Nom projet requis</div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- Formulaire Description bas de page (commentaire) -->
+            <form [formGroup]="formulaireForm">
+              <h2>Description *</h2>
+              <div class="form-group">
+
+                <textarea name=monTexte formControlName="description" class="form-control"
+                  id="exampleFormControlTextarea1" rows="3" placeholder="..."
+                  [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+                <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                  <div *ngIf="f.description.errors.required">Le champ Formulaire est requis</div>
+                </div>
+              </div>
+
+              <br>
+            </form>
+            <div class="form-footer pt-5 border-top">
+
+              <!-- Modal (popup) de confirmation de création de demande de contrat -->
+              <button type="button" data-toggle="modal" data-target="#exampleModal"
+                class="btn btn-primary btn-default">Envoyer</button>
+              <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Confirmation de création de contrat</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      voulez-vous vraiment créer ce contrat ?
+                      <div class="form-footer pt-5 border-top">
+
+                        <button type="button" (click)="formulaire()" class="btn btn-primary btn-default"
+                          data-dismiss="modal">Envoyer</button>
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

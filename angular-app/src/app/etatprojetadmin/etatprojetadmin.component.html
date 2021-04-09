@@ -1,0 +1,44 @@
+<!-- <div [hidden]="!edited" class="alert alert-success box-msg" role="alert">
+  <strong>List Saved!</strong> Your changes has been saved.
+</div> -->
+<div class="col-lg-12">
+  <div class="card card-default">
+    <div class="card-header card-header-border-bottom">
+      <h1>Etat projets</h1>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nom du Projet</th>
+            <th scope="col">Etat</th>
+            <th scope="col">Nom Entreprise</th>
+            <th scope="col">Nom Demandeur</th>
+            <th scope="col">Date de Demande</th>
+            <th scope="col">Date de Chiffrage</th>
+            <th scope="col">Date de Démarrage</th>
+            <th scope="col">Date de Livraison</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let tableauProjet of tableauProjets"> <!-- Boucle for sur le tableau tableauProjets contenu dans le fichier .ts -->
+            <tr>
+              <td>
+                <p id="projetclickable" (click)="onClickResumeProjet(tableauProjet.id_demande)">
+                  {{ tableauProjet.nom_demande }}
+                </p>
+              </td>
+              <td>{{ tableauProjet.nom_etat }}</td>
+              <td>{{ tableauProjet.nom_entreprise }}</td>
+              <td>{{ tableauProjet.nom_demandeur }}</td>
+              <td>{{ tableauProjet.date_demande | date: "dd/MM/yyyy" }}</td>
+              <td>{{ tableauProjet.date_chiffrage | date: "dd/MM/yyyy" }}</td>
+              <td>{{ tableauProjet.date_demarrage | date: "dd/MM/yyyy" }}</td>
+              <td>{{ tableauProjet.date_livraison | date: "dd/MM/yyyy" }}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

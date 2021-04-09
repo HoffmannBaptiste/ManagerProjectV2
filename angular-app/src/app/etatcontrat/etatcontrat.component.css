@@ -1,0 +1,7 @@
+
+/* donne un style clickable bleu */
+#projetclickable{
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+}

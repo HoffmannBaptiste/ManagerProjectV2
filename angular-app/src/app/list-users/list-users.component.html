@@ -1,0 +1,129 @@
+<div class="content">
+  <div class="row">
+    <div class="col-12">
+      <!-- Recent Order Table -->
+      <div class="card card-table-border-none" id="recent-orders">
+        <div class="card-header justify-content-between">
+          <h2>Liste des utilisateurs</h2>
+          <!-- <div class="date-range-report ">
+            <span></span>
+          </div> -->
+        </div>
+        <div class="card-body pt-0 pb-5">
+          <table class="table card-table table-responsive table-responsive-large" style="width:100%">
+            <thead>
+              <tr>
+                <!-- <th>ID Utilisateur</th> -->
+                <th>Login utilisateur</th>
+                <th class="d-none d-md-table-cell">Entreprise</th>
+                <!-- <th class="d-none d-md-table-cell">Order Cost</th> -->
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let utilisateur of utilisateurs; let i = index">
+                <tr>
+                  <!-- <td >{{ utilisateur.id_utilisateur }}</td> -->
+                  <td>
+                    <a class="text-dark"
+                      [routerLink]="['/utilisateur', utilisateur.id_utilisateur]">{{ utilisateur.login_utilisateur }}</a>
+                  </td>
+                  <td class="d-none d-md-table-cell">{{ utilisateur.nom_entreprise }}</td>
+                  <!-- <td class="d-none d-md-table-cell">$230</td> -->
+                  <td>
+                    <!-- Badge de couleur en fonction de l'utilisateur -->
+                    <span class="badge" [ngClass]="{
+                      'badge-success': utilisateur.droit_utilisateur == 'Client',
+                      'badge-info': utilisateur.droit_utilisateur == 'Collaborateur',
+                      'badge-warning': utilisateur.droit_utilisateur == 'Administrateur'
+                    }">{{ utilisateur.droit_utilisateur }}</span>
+                  </td>
+                  <td class="text-right">
+                    <div class="dropdown show d-inline-block widget-dropdown">
+                      <a class="dropdown-toggle icon-burger-mini" href="" role="button" id="dropdown-recent-order1"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static"></a>
+                      <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-recent-order1">
+                        <li class="dropdown-item">
+                          <a [routerLink]="['/utilisateur', utilisateur.id_utilisateur]">Voir le profil</a>
+                        </li>
+                        <li class="dropdown-item">
+                          <a href="#" data-toggle="modal" [attr.data-target]="'#exampleModal' + i">Supprimer
+                            l'utilisateur</a>
+                          <!-- Button trigger modal -->
+                          <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Launch demo modal
+                          </button> -->
+
+
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Modal  de supression d'utilisateur-->
+                <div class="modal fade" id="exampleModal{{i}}" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header modal-header-danger">
+                        <h5 class="modal-title" id="exampleModalLabel">Suppresion d'un utilisateur !</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Attention, vous allez supprimer l'utilisateur {{ utilisateur.login_utilisateur }} !
+                        Confirmez-vous la suppression de cette utilisateur ?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                          (click)="deleteEtape(utilisateur.id_utilisateur)">Confirmer</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Recent Order Table -->
+      <div class="card card-table-border-none" id="recent-orders">
+        <div class="card-header justify-content-between">
+          <h2>Nombre de demandes par utilisateurs</h2>
+          <div class="date-range-report ">
+            <span></span>
+          </div>
+        </div>
+        <div class="card-body pt-0 pb-5">
+          <table class="table card-table table-responsive table-responsive-large" style="width:100%">
+            <thead>
+              <tr>
+                <!-- <th>ID Utilisateur</th> -->
+                <th>Login utilisateur</th>
+                <th class="d-none d-md-table-cell">Nombre de demandes</th>
+                <!-- <th class="d-none d-md-table-cell">Order Cost</th> -->
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let nombre of nombredemandes">
+                <tr>
+                  <!-- <td >{{ nombre.id_utilisateur }}</td> -->
+                  <td>
+                    <a class="text-dark"
+                      [routerLink]="['/utilisateur', nombre.id_utilisateur]">{{ nombre.login_utilisateur }}</a>
+                  </td>
+                  <td class="d-none d-md-table-cell">{{ nombre.nombre_demandes }}</td>
+                  <!-- <td class="d-none d-md-table-cell">$230</td> -->
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="col-lg-12">
+  <div class="card card-default">
+    <div class="card-header card-header-border-bottom">
+      <h1>État contrat</h1>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nom du Contrat</th>
+            <th scope="col">Nom Entreprise</th>
+            <th scope="col">Nom Demandeur</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let tableauContrat of tableauContrats"> <!-- Boucle for sur le tableau tableauProjets contenu dans le fichier .ts -->
+            <tr>
+              <td>
+                <p id="projetclickable" (click)="onClickResumeContrat(tableauContrat.id_contrat)">
+                  {{ tableauContrat.nom_contrat }}
+                </p>
+              </td>
+              <td>{{ tableauContrat.nom_entreprise }}</td>
+              <td>{{ tableauContrat.nom_demandeur }}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

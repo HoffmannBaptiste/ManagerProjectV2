@@ -1,0 +1,142 @@
+<div class="content">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card card-default">
+        <div class="card-header card-header-border-bottom">
+          <h2>Profil Utilisateur</h2>
+        </div>
+        <div class="card-body">
+
+          <!-- Formulaire de modification d'infos utilisateurs -->
+          <form (ngSubmit)="update()" [formGroup]="formulaireUser">
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Nom</label>
+              <input type="text" class="form-control" formControlName="nom" id="exampleFormControlInput1"
+                placeholder="{{ nom }}" [value]="nom" [ngClass]="{ 'is-invalid': submitted && f.nom.errors }"> <!-- Gestion d'erreur -->
+              <div *ngIf="submitted && f.nom.errors" class="invalid-feedback">
+                <!-- Gestion d'erreur -->
+                <div *ngIf="f.nom.errors.required || f.nom.errors.pattern || f.nom.errors.maxlength">Nom
+                  <!-- Gestion d'erreur -->
+                  de 50 caractères maximum / chiffres interdits / champ vide = pas de changement pour cette valeur</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Prénom</label>
+              <input type="text" class="form-control" formControlName="prenom" id="exampleFormControlInput2"
+                placeholder="{{ prenom }}" [value]="prenom" [ngClass]="{ 'is-invalid': submitted && f.prenom.errors }"> <!-- Gestion d'erreur -->
+              <div *ngIf="submitted && f.prenom.errors" class="invalid-feedback">
+                <!-- Gestion d'erreur -->
+                <div *ngIf="f.prenom.errors.required || f.prenom.errors.pattern || f.prenom.errors.maxlength">Prénom
+                  <!-- Gestion d'erreur -->
+                  de 50 caractères maximum / chiffres interdits / champ vide = pas de changement pour cette valeur
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Entreprise</label>
+              <input type="text" class="form-control" formControlName="nomentreprise" id="exampleFormControlInput3"
+                placeholder="{{ nomentreprise }}" [value]="nomentreprise" [ngClass]="{ 'is-invalid': submitted && f.nomentreprise.errors }"> <!-- Gestion d'erreur -->
+              <div *ngIf="submitted && f.nomentreprise.errors" class="invalid-feedback">
+                <!-- Gestion d'erreur -->
+                <div *ngIf="f.nomentreprise.errors.required || f.nomentreprise.errors.maxlength">Nom d'entreprise requis (50 caractères maximum)</div>
+                <!-- Gestion d'erreur -->
+              </div>
+            </div>
+            <div *ngIf="currentUser.droit_utilisateur == 2" class="form-group">
+              <label for="selectiondroit">Droit Utilisateur</label>
+              <select [(ngModel)]='droitutilisateur' class="form-control" id="selectiondroit"
+                formControlName="droitutilisateur">
+                <option>Client</option>
+                <option>Administrateur</option>
+                <option>Collaborateur</option>
+              </select>
+            </div>
+            <div class="form-footer pt-4 pt-5 mt-4 border-top">
+              <button type="submit" class="btn btn-primary btn-default">Sauvegarder</button>
+              <button (click)="userlist()" type="button" class="btn btn-secondary btn-default">Retour</button>
+            </div>
+          </form>
+          <!-- Button trigger modal -->
+          <button id="openModal" [hidden]="true" type="button" class="btn btn-primary" data-toggle="modal"
+            data-target="#exampleModal">
+            Launch demo modal
+          </button>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header modal-header-success">
+                  <h5 class="modal-title" id="exampleModalLabel">Mise à jour effectuée !</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Confirmation de la mise à jour des informations de l'utilisateur.
+                </div>
+                <div class="modal-footer">
+                  <button (click)="userlist()" type="button" class="btn btn-secondary"
+                    data-dismiss="modal">Fermer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-lg-12">
+      <div class="card card-default">
+        <div class="card-body">
+          <form (ngSubmit)="updatePassword()" [formGroup]="formulaireUserPassword">
+            <div class="form-group">
+              <label for="exampleFormControlPassword2">Mot de passe</label>
+              <input type="password" class="form-control" formControlName="password" id="exampleFormControlPassword2"
+                placeholder="Nouveau mot de passe" [ngClass]="{ 'is-invalid': submitted && f2.password.errors }"> <!-- Gestion d'erreur -->
+              <!-- Gestion d'erreur -->
+              <div *ngIf="submitted && f2.password.errors" class="invalid-feedback">
+                <!-- Gestion d'erreur -->
+                <div *ngIf="f2.password.errors.required || f2.password.errors.pattern || f2.password.errors.maxlength">Le mot de passe
+                  doit contenir 8 caractères minimum / 1 caractère majuscule et minuscule
+                  / Au moins 1 chiffre / peut contenir des caractères spéciaux / (50 caractères maximum)</div>
+              </div>
+            </div>
+            <div class="form-footer pt-4 pt-5 mt-4 border-top">
+              <button type="submit" class="btn btn-primary btn-default">Sauvegarder</button>
+              <button (click)="userlist()" type="button" class="btn btn-secondary btn-default">Retour</button>
+
+              <!-- Button trigger modal -->
+              <button id="openModal2" [hidden]="true" type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#exampleModal2">
+                Launch modal
+              </button>
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header modal-header-success">
+                      <h5 class="modal-title" id="exampleModalLabel2">Mise à jour effectuée !</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Confirmation de la mise à jour du mot de passe de l'utilisateur.
+                    </div>
+                    <div class="modal-footer">
+                      <button (click)="userlist()" type="button" class="btn btn-secondary"
+                        data-dismiss="modal">Fermer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

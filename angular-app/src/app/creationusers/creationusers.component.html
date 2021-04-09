@@ -1,0 +1,135 @@
+<div class="content">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card card-default">
+        <div class="card-header  justify-content-between">
+          <h1>Création d'un utilisateur</h1>
+          <br>
+        </div>
+        <div class="form-footer pt-5 border-top">
+          <div class="card-body">
+            <!-- Formulaire de création d'utilisateur -->
+            <form [formGroup]="formulaireForm">
+              <h2>Nouvel utilisateur </h2>
+              <br>
+              <div class="row">
+
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="fname">Droit* : </label>
+                    <!-- <select (ngModelChange)="changement()" class="form-control" style="margin-left: 1%;" name="droit" id="droit" formControlName="droit"> -->
+                    <select class="form-control" style="margin-left: 1%;" name="droit" id="droit"
+                      formControlName="droit" [ngClass]="{ 'is-invalid': submitted && f.droit.errors }">
+                      <option value="Client">Client</option>
+                      <option value="Admin">Admin</option>
+                      <option value="Collaborateur">Collaborateur</option>
+                    </select>
+                    <div *ngIf="submitted && f.droit.errors" class="invalid-feedback">
+                      <div *ngIf="f.droit.errors.required">Droit utilisateur requis</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="fname">Prénom* :</label>
+                    <input class="form-control" type="text" formControlName="prenom" placeholder="Prénom"
+                      [ngClass]="{ 'is-invalid': submitted && f.prenom.errors }"> <!-- Gestion d'erreur -->
+                    <div *ngIf="submitted && f.prenom.errors" class="invalid-feedback"> <!-- Gestion d'erreur -->
+                      <!-- Gestion d'erreur -->
+                      <div *ngIf="f.prenom.errors.required || f.prenom.errors.pattern || f.prenom.errors.maxlength">Prénom
+                        requis (50 caractères maximum) / contient des caractères non autorisés
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="lname">Nom* :</label>
+                    <input class="form-control" type="text" formControlName="nom" placeholder="Nom"
+                      [ngClass]="{ 'is-invalid': submitted && f.nom.errors }">
+                    <div *ngIf="submitted && f.nom.errors" class="invalid-feedback">
+                      <div *ngIf="f.nom.errors.required || f.nom.errors.pattern || f.nom.errors.maxlength">Nom requis (50
+                        caractères maximum) / contient des caractères non autorisés</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="fname">Login* :</label>
+                    <input class="form-control" type="text" formControlName="login" placeholder="login"
+                      [ngClass]="{ 'is-invalid': submitted && f.login.errors }">
+                    <div *ngIf="submitted && f.login.errors" class="invalid-feedback">
+                      <div *ngIf="f.login.errors.required || f.login.errors.pattern || f.login.errors.maxlength">Login
+                        d'utilisateur requis (50 caractères maximum) format adresse mail mail@domaine.com / contient des caractères
+                        non autorisés</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="lname">Mot de passe* :</label>
+                    <input class="form-control" type="password" formControlName="mdp" placeholder="Mot de passe"
+                      [ngClass]="{ 'is-invalid': submitted && f.mdp.errors }">
+                    <div *ngIf="submitted && f.mdp.errors" class="invalid-feedback">
+                      <div *ngIf="f.mdp.errors.required || f.mdp.errors.pattern || f.mdp.errors.maxlength">Le mot de passe
+                        doit contenir 8 caractères minimum / 1 caractère majuscule et minuscule
+                        / Au moins 1 chiffre / peut contenir des caractères spéciaux / (50 caractères maximum)</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div *ngIf="test"> -->
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label for="lname">Entreprise* :</label>
+                    <input class="form-control" type="text" formControlName="entreprise" placeholder="entreprise"
+                      [ngClass]="{ 'is-invalid': submitted && f.entreprise.errors }">
+                    <div *ngIf="submitted && f.entreprise.errors" class="invalid-feedback">
+                      <div *ngIf="f.entreprise.errors.required || f.entreprise.errors.maxlength">Nom d'entreprise requis (50 caractères maximum)</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- </div> -->
+                <br />
+
+              </div>
+              <div class="form-footer pt-5 border-top">
+                <button type="button" class="btn btn-primary btn-default" data-toggle="modal"
+                  data-target="#exampleModal">Créer l'utilisateur</button>
+                <!-- Modal (comme un popup) -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header modal-header-danger">
+                        <h5 class="modal-title" id="exampleModalLabel">Création d'un utilisateur
+                          !</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Attention, vous allez créer un utilisateur !
+                        Confirmez-vous la création de cette utilisateur ?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="button" (click)="valider()" class="btn btn-primary"
+                          data-dismiss="modal">Confirmer</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button style="margin-left: 5%;" (click)="retour()" type="submit"
+                  class="btn btn-primary btn-default">Retour</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

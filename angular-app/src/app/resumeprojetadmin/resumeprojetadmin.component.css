@@ -1,0 +1,18 @@
+thead,
+tfoot {
+    background-color: rgb(100, 181, 224);
+    color: rgb(255, 255, 255);
+}
+
+table{
+    margin-bottom:30px;
+    border-bottom: 5px solid #333;
+    color:black;
+
+    /* border-top: 1px solid #333;
+    border-collapse:separate; */
+}
+
+h1,h2{
+    color:black;
+}

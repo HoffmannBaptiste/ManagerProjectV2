@@ -1,0 +1,183 @@
+<div class="col-lg-12">
+  <div class="card card-default">
+    <div class="card-header card-header-border-bottom">
+      <h1>Résumé du contrat : {{ tableauContrats && tableauContrats[0].nom_contrat }}</h1>
+    </div>
+    <br />
+    <br />
+    <div class="col-lg-12">
+      <div class="card card-default">
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">
+                  Nom du Demandeur
+                </th>
+                <th scope="col">
+                  Nom Entreprise
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let tableauContrat of tableauContrats"> <!-- Boucle for sur le tableau tableauContrat contenu dans le fichier .ts -->
+                <tr>
+                  <td>
+                    {{ tableauContrat.nom_demandeur }}
+                  </td>
+                  <td>
+                    {{ tableauContrat.nom_entreprise }}
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">
+                  Code NOP
+                </th>
+                <th scope="col">
+                  Reference Client
+                </th>
+                <th scope="col">
+                  Reference Interne
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let tableauContrat of tableauContrats"> <!-- Boucle for sur le tableau tableauContrat contenu dans le fichier .ts -->
+                <tr>
+                  <td>
+                    {{ tableauContrat.code_nop }}
+                  </td>
+                  <td>
+                    {{ tableauContrat.reference_client }}
+                  </td>
+                  <td>
+                    {{ tableauContrat.reference_interne }}
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">
+                  Description
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <ng-container>{{ tableauContrats && tableauContrats[0].description }}
+                  </ng-container>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ne s'affiche que si le projet est à un état égal ou supérieur à l'état 2 (Traitement en cours)-->
+    <div style="margin-top:2%" *ngIf="(this.authenticationService.currentUserValue.droit_utilisateur == 2 || this.authenticationService.currentUserValue.droit_utilisateur == 3)">
+      <div class="col-lg-12">
+        <div class="card card-default">
+          <div class="card-header card-header-border-bottom">
+            <h2>Plannig</h2>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">
+                    Phase
+                  </th>
+                  <th scope="col">
+                    Tâche
+                  </th>
+                  <th scope="col">
+                    Entitée
+                  </th>
+                  <th scope="col">
+                    Liste des Collaborateurs
+                  </th>
+                  <th scope="col">
+                    Date de début
+                  </th>
+                  <th scope="col">
+                    Date de démarrage
+                  </th>
+                  <th scope="col">
+                    Date de fin
+                  </th>
+                  <th scope="col">
+                    Charge total
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let lignetache of lignetaches"> <!-- Boucle for sur le tableau tableauContrats contenu dans le fichier .ts -->
+                  <tr>
+                    <td>
+                      {{ lignetache.nom_phase }}
+                    </td>
+                    <td>
+                      {{ lignetache.nom_tache }}
+                    </td>
+                    <td>
+                      {{ lignetache.nom_entite }}
+                    </td>
+                    <td>
+                      {{ lignetache.collaborateur }}
+                    </td>
+                    <td>
+                      {{ lignetache.date_debut | date: 'dd/MM/yyyy'}}
+                    </td>
+                    <td>
+                      {{ lignetache.date_demarrage | date: 'dd/MM/yyyy'}}
+                    </td>
+                    <td>
+                      {{ lignetache.date_fin | date: 'dd/MM/yyyy'}}
+                    </td>
+                    <td>
+                      {{ lignetache.charge_total }}
+                    </td>
+                  </tr>
+
+
+                </ng-container>
+
+              </tbody>
+
+            </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="card card-default">
+          <div class="card-body">
+            <button type="button" class="btn btn-primary" (click)="onClickFormulaireContrat()">Ajouter des tâches</button>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+  </div>

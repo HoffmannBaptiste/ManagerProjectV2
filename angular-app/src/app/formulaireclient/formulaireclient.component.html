@@ -1,0 +1,207 @@
+<div class="content">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card card-default">
+        <div class="card-header  justify-content-between">
+          <h1>Formulaire de demande de projet </h1>
+          <br>
+        </div>
+        <div class="form-footer pt-5 border-top"></div>
+        <div class="card-body">
+          <form>
+
+            <!-- Formulaire  Description haut de page + Nom projet -->
+            <form [formGroup]="formulaireForm">
+              <h2>Description : </h2>
+              <br>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="fname">Nom Client / Entreprise *</label>
+                    <input type="text" class="form-control"
+                      placeholder="{{userinfo.login_utilisateur }} / {{userinfo.nom_entreprise }}" disabled>
+
+
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="lname">Demandeur *</label>
+
+
+
+                    <input class="form-control" type="text" formControlName="demandeur" placeholder="Demandeur"
+                      [ngClass]="{ 'is-invalid': submitted && f.demandeur.errors }">
+                    <div *ngIf="submitted && f.demandeur.errors" class="invalid-feedback">
+                      <div *ngIf="f.demandeur.errors.required || f.demandeur.errors.pattern">Le nom du demandeur est
+                        requis</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="State">Référence interne</label>
+                        <input class="form-control" type="text" formControlName="referenceinterne"
+                          placeholder="Ref Interne">
+
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="Zip">Fonction </label>
+                        <input class="form-control" type="text" formControlName="fonction" placeholder="Fonction">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="State">Code NOP</label>
+                        <input class="form-control" type="text" formControlName="codenop" placeholder="Codenop">
+
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="Zip">Référence Client</label>
+                        <input class="form-control" type="text" formControlName="referenceclient"
+                          placeholder="Ref Client">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-footer pt-5 border-top"></div>
+              <h2>Nom du projet</h2>
+              <br>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="fname">Nom projet *</label>
+                    <input class="form-control" type="text" formControlName="nomprojet" placeholder="nom projet"
+                      [ngClass]="{ 'is-invalid': submitted && f.nomprojet.errors }">
+                    <div *ngIf="submitted && f.nomprojet.errors" class="invalid-feedback">
+                      <div *ngIf="f.nomprojet.errors.required">Nom projet requis</div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <!-- Formulaire de périmètre à cocher -->
+            <form [formGroup]="perimetreForm">
+              <div class="form-footer pt-5 border-top"></div>
+              <h2>Périmètre technique </h2>
+              <div class="col-lg-6">
+                <div class="card card-default">
+                  <div class="card-body">
+                    <label class="control outlined control-checkbox">
+                      Application
+                      <input type="checkbox" formControlName="application">
+                      <div class="control-indicator"></div>
+                    </label>
+                    <label class="control outlined control-checkbox">
+                      Bt/Ordo
+                      <input type="checkbox" formControlName="btordo">
+                      <div class="control-indicator"></div>
+                    </label>
+                    <label class="control outlined control-checkbox">
+                      Base de donnée
+                      <input type="checkbox" formControlName="bdd">
+                      <div class="control-indicator"></div>
+                    </label>
+                    <label class="control outlined control-checkbox">
+                      Unix
+                      <input type="checkbox" formControlName="unix">
+                      <div class="control-indicator"></div>
+                    </label>
+                    <label class="control outlined control-checkbox">
+                      Windows
+                      <input type="checkbox" formControlName="windows">
+                      <div class="control-indicator"></div>
+                    </label>
+                    <label class="control outlined control-checkbox">
+                      Reseau
+                      <input type="checkbox" formControlName="reseau">
+                      <div class="control-indicator"></div>
+                    </label>
+                    <label class="control outlined control-checkbox">
+                      Sap
+                      <input type="checkbox" formControlName="sap">
+                      <div class="control-indicator"></div>
+                    </label>
+                    <label class="control outlined control-checkbox">
+                      Autre
+                      <input type="checkbox" formControlName="autre">
+                      <div class="control-indicator"></div>
+                    </label>
+                    <label class="control outlined control-checkbox">
+                      Stockage
+                      <input type="checkbox" formControlName="stockage">
+                      <div class="control-indicator"></div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <!-- Formulaire Description bas de page (commentaire) -->
+            <form [formGroup]="formulaireForm">
+              <h2>Description *</h2>
+              <div class="form-group">
+
+                <textarea name=monTexte formControlName="description" class="form-control"
+                  id="exampleFormControlTextarea1" rows="3" placeholder="..."
+                  [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+                <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                  <div *ngIf="f.description.errors.required">Le champ Formulaire est requis</div>
+                </div>
+              </div>
+
+              <br>
+            </form>
+            <div class="form-footer pt-5 border-top">
+
+              <!-- Modal (popup) de confirmation de création de demande de projet -->
+              <button type="button" data-toggle="modal" data-target="#exampleModal"
+                class="btn btn-primary btn-default">Envoyer</button>
+              <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Confirmation de création de projet</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      voulez-vous vraiment créer ce projet ?
+                      <div class="form-footer pt-5 border-top">
+
+                        <button type="button" (click)="formulaire()" class="btn btn-primary btn-default"
+                          data-dismiss="modal">Envoyer</button>
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

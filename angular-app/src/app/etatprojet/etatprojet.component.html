@@ -1,0 +1,53 @@
+<div class="content">
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-default">
+        <div class="card-header card-header-border-bottom justify-content-between">
+          <h1>Etat projets</h1>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped table-responsive table-responsive-large" style="width:100%">
+            <thead>
+              <tr>
+                <th scope="col">Nom du Projet</th>
+                <th scope="col">Etat</th>
+                <th scope="col">Date de Demande</th>
+                <th scope="col">Date de Chiffrage</th>
+                <th scope="col">Date de Démarrage</th>
+                <th scope="col">Date de Livraison</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let tableauProjet of tableauProjets"> <!-- Boucle for sur le tableau tableauProjets contenu dans le fichier .ts -->
+                <tr>
+                  <td scope="row" id="projetclickable" (click)="onClickProjet(tableauProjet.id_demande)">{{ tableauProjet.nom_demande }}</td>
+                  <td>{{ tableauProjet.nom_etat }}</td>
+                  <td>{{ tableauProjet.date_demande | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ tableauProjet.date_chiffrage | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ tableauProjet.date_demarrage | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ tableauProjet.date_livraison | date: 'dd/MM/yyyy' }}</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <pre class="mt-4 pre-code">
+  jQuery(document).ready(function() {
+   jQuery('#basic-data-table').DataTable({
+    "dom": '&lt;"row justify-content-between top-information"lf&gt;rt&lt;"row justify-content-between bottom-information"ip>&lt;"clear"&gt;'
+   });
+  });
+</pre> -->
+
+<!-- <pre class="mt-4">
+<code>&lt;script src="assets/plugins/data-tables/jquery.datatables.min.js"&gt;&lt;/script&gt;</code>
+<code>&lt;script src="assets/plugins/data-tables/datatables.bootstrap4.min.js"&gt;&lt;/script&gt;</code>
+</pre> -->
+
+
+<!-- <button type="submit" style="width: 250px; display : block; margin: auto;" class="btn btn-lg btn-primary btn-block mb-4" (click)="onClickNouveauProjet()">Nouveau Projet Client</button> -->

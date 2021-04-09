@@ -1,0 +1,152 @@
+<div *ngIf="this.authenticationService.currentUserValue; else elseBlock">
+  <div class="wrapper">
+    <!--
+      ====================================
+      ——— LEFT SIDEBAR WITH OUT FOOTER
+      =====================================
+    -->
+    <aside class="left-sidebar bg-sidebar">
+      <div id="sidebar" class="sidebar sidebar-with-footer">
+        <!-- Aplication Brand -->
+        <div class="app-brand">
+          <a [routerLink]="['/etatprojet']">
+            <svg class="brand-icon" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="30"
+              height="33" viewBox="0 0 30 33">
+              <g fill="none" fill-rule="evenodd">
+                <path class="logo-fill-blue" fill="#7DBCFF" d="M0 4v25l8 4V0zM22 4v25l8 4V0z" />
+                <path class="logo-fill-white" fill="#FFF" d="M11 4v25l8 4V0z" />
+              </g>
+            </svg>
+            <span class="brand-name">ProjectManager</span>
+          </a>
+        </div>
+        <!-- begin sidebar scrollbar -->
+        <div class="sidebar-scrollbar">
+
+          <!-- sidebar menu -->
+          <ul class="nav sidebar-inner" id="sidebar-menu">
+            <li class="has-sub active expand">
+              <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#documentation"
+                aria-expanded="false" aria-controls="documentation">
+                <i class="mdi mdi-book-open-page-variant"></i>
+                <span class="nav-text">Acces rapide</span> <b class="caret"></b>
+              </a>
+              <ul class="collapse show" id="documentation" data-parent="#sidebar-menu">
+                <div class="sub-menu">
+
+                  <li> <a class="sidenav-item-link" [routerLink]="['/etatprojetadmin']"><span class="nav-text">Etat des projets</span></a></li>
+
+                  <li><a class="sidenav-item-link" [routerLink]="['/etatcontratadmin']"><span class="nav-text">Etat des contrat</span></a></li>
+
+                  <li><a class="sidenav-item-link" [routerLink]="['/formulaireclient']"><span class="nav-text">Création projet</span></a></li>
+
+                  <li><a class="sidenav-item-link" [routerLink]="['/formulaireccontratcreation']"><span class="nav-text">Création contrat</span></a></li>
+
+                  <ng-container *ngIf="currentUser.droit_utilisateur == 2">
+
+                    <li><a class="sidenav-item-link" [routerLink]="['/creationusers']"><span class="nav-text">Création Utilisateur</span></a></li>
+
+                    <li><a class="sidenav-item-link" [routerLink]="['/utilisateurs']"><span class="nav-text">Liste des utilisateurs</span></a></li>
+
+                    <li><a class="sidenav-item-link" [routerLink]="['/creationroles']"><span class="nav-text">Création Rôle</span></a></li>
+
+                    <li><a class="sidenav-item-link" [routerLink]="['/roles']"><span class="nav-text">Liste des rôles</span></a></li>
+
+                    <li><a class="sidenav-item-link" [routerLink]="['/home2']"><span class="nav-text">Planning de Charge</span></a></li>
+
+                  </ng-container>
+
+                </div>
+              </ul>
+            </li>
+
+
+
+          </ul>
+
+        </div>
+      </div>
+    </aside>
+
+    <div class="page-wrapper">
+      <!-- Header -->
+      <header class="main-header " id="header">
+        <nav class="navbar navbar-static-top navbar-expand-lg">
+          <!-- Sidebar toggle button -->
+          <button id="sidebar-toggler" class="sidebar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+          </button>
+          <!-- search form -->
+          <div class="search-form d-none d-lg-inline-block">
+            <div class="input-group">
+              <img [src]="cheminImage" class="fit-picture">
+            </div>
+            <div id="search-results-container">
+              <ul id="search-results"></ul>
+            </div>
+          </div>
+
+          <div class="navbar-right ">
+            <ul class="nav navbar-nav">
+
+
+
+
+              <!-- User Account -->
+              <li class="dropdown user-menu">
+                <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                  <img [src]="ImageUser" class="fit-picture2">
+                  <span class="d-none d-lg-inline-block">{{currentUser.login_utilisateur}}</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <!-- User image -->
+                  <!-- <li class="dropdown-header">
+                    <img [src]="ImageUser" class="fit-picture2">
+                    <div class="d-inline-block">
+                      <small class="pt-1">
+                        {{currentUser.nom_entreprise}}
+                      </small>
+                    </div>
+                  </li> -->
+
+                  <li>
+                    <a [routerLink]="['/utilisateur', currentUser.id_utilisateur]">
+                      <i class="mdi mdi-account"></i> Mon Profil
+                    </a>
+                  </li>
+                  <!-- <li>
+                    <a href="email-inbox.html">
+                    <i class="mdi mdi-email"></i> Message
+                    </a>
+                </li> -->
+                  <li>
+                    <a [routerLink]="['/etatprojet']"> <i class="mdi mdi-diamond-stone"></i> Mes demandes de projets
+                    </a>
+                  </li>
+                  <!-- <li>
+                    <a href="#"> <i class="mdi mdi-settings"></i> Account Setting </a>
+                </li> -->
+
+                  <li class="dropdown-footer">
+                    <a *ngIf="this.authenticationService.currentUserValue" routerLink="authentification"
+                      (click)="this.authenticationService.logout()"> <i class="mdi mdi-logout"></i> Déconnexion </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+
+      </header>
+
+      <div class="content-wrapper">
+        <router-outlet></router-outlet>
+      </div>
+
+    </div>
+  </div>
+</div>
+<ng-template #elseBlock>
+  <router-outlet></router-outlet>
+</ng-template>

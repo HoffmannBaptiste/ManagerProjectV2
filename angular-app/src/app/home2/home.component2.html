@@ -1,0 +1,489 @@
+
+    <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+    <div *ngIf="display">
+    <div class="col-lg-18">
+    <div class="card card-default">
+    <div class="container-fluid">
+      <div class="card-header card-header-border-bottom">
+      <h1>Tableau Prévision de charge (H/J)</h1>
+      </div>
+      <div class="card-body">
+      <div class="table-reponsive">
+      <table class="table table-bordered" id="excel-table">
+        <caption>Liste des charges utilisateurs pour l'année {{monannee}}</caption>
+        <thead class="thead-dark">
+          <tr>
+            <th></th>
+            <th>Janvier  </th>
+            <th>Février  </th>
+            <th>Mars     </th>
+            <th>Avril    </th>
+            <th>Mai      </th>
+            <th>Juin     </th>
+            <th>Juillet     </th>
+            <th>Aout     </th>
+            <th>Septembre</th>
+            <th>Octobre  </th>
+            <th>Novembre </th>
+            <th>Decembre </th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let chargecomplet of chargecomplets; let index=index">
+          <tr class="active-row">
+            <th>
+            {{ chargecomplet.fk_utilisateur_id }}
+            </th>
+            <td [ngClass]="{
+              'bg-danger text-white': chargecomplet.janvier_charge <= 6,
+              'bg-warning text-dark': chargecomplet.janvier_charge <= 15,
+              'bg-info text-white': chargecomplet.janvier_charge <= 20,
+              'bg-success text-white': chargecomplet.janvier_charge == 21,
+              'bg-dark text-white': chargecomplet.janvier_charge > 21
+            }" > {{chargecomplet.janvier_charge}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': chargecomplet.fevrier_charge <= 6,
+              'bg-warning text-dark': chargecomplet.fevrier_charge <= 15,
+              'bg-info text-white': chargecomplet.fevrier_charge <= 20,
+              'bg-success text-white': chargecomplet.fevrier_charge == 21,
+              'bg-dark text-white': chargecomplet.fevrier_charge > 21
+            }" > {{chargecomplet.fevrier_charge}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': chargecomplet.mars_charge <= 6,
+              'bg-warning text-dark': chargecomplet.mars_charge <= 15,
+              'bg-info text-white': chargecomplet.mars_charge <= 20,
+              'bg-success text-white': chargecomplet.mars_charge == 21,
+              'bg-dark text-white': chargecomplet.mars_charge > 21
+            }" > {{chargecomplet.mars_charge}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': chargecomplet.avril_charge <= 6,
+              'bg-warning text-dark': chargecomplet.avril_charge <= 15,
+              'bg-info text-white': chargecomplet.avril_charge <= 20,
+              'bg-success text-white': chargecomplet.avril_charge == 21,
+              'bg-dark text-white': chargecomplet.avril_charge > 21
+            }" > {{chargecomplet.avril_charge}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': chargecomplet.mai_charge <= 6,
+              'bg-warning text-dark': chargecomplet.mai_charge <= 15,
+              'bg-info text-white': chargecomplet.mai_charge <= 20,
+              'bg-success text-white': chargecomplet.mai_charge == 21,
+              'bg-dark text-white': chargecomplet.mai_charge > 21
+            }" > {{chargecomplet.mai_charge}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': chargecomplet.juin_charge <= 6,
+              'bg-warning text-dark': chargecomplet.juin_charge <= 15,
+              'bg-info text-white': chargecomplet.juin_charge <= 20,
+              'bg-success text-white': chargecomplet.juin_charge == 21,
+              'bg-dark text-white': chargecomplet.juin_charge > 21
+            }" > {{chargecomplet.juin_charge}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': chargecomplet.juillet_charge <= 6,
+              'bg-warning text-dark': chargecomplet.juillet_charge <= 15,
+              'bg-info text-white': chargecomplet.juillet_charge <= 20,
+              'bg-success text-white': chargecomplet.juillet_charge == 21,
+              'bg-dark text-white': chargecomplet.juillet_charge > 21
+            }" > {{chargecomplet.juillet_charge}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': chargecomplet.aout_charge <= 6,
+              'bg-warning text-dark': chargecomplet.aout_charge <= 15,
+              'bg-info text-white': chargecomplet.aout_charge <= 20,
+              'bg-success text-white': chargecomplet.aout_charge == 21,
+              'bg-dark text-white': chargecomplet.aout_charge > 21
+            }" > {{chargecomplet.aout_charge}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': chargecomplet.septembre_charge <= 6,
+              'bg-warning text-dark': chargecomplet.septembre_charge <= 15,
+              'bg-info text-white': chargecomplet.septembre_charge <= 20,
+              'bg-success text-white': chargecomplet.septembre_charge == 21,
+              'bg-dark text-white': chargecomplet.septembre_charge > 21
+            }" > {{chargecomplet.septembre_charge}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': chargecomplet.octobre_charge <= 6,
+              'bg-warning text-dark': chargecomplet.octobre_charge <= 15,
+              'bg-info text-white': chargecomplet.octobre_charge <= 20,
+              'bg-success text-white': chargecomplet.octobre_charge == 21,
+              'bg-dark text-white': chargecomplet.octobre_charge > 21
+            }" > {{chargecomplet.octobre_charge}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': chargecomplet.novembre_charge <= 6,
+              'bg-warning text-dark': chargecomplet.novembre_charge <= 15,
+              'bg-info text-white': chargecomplet.novembre_charge <= 20,
+              'bg-success text-white': chargecomplet.novembre_charge == 21,
+              'bg-dark text-white': chargecomplet.novembre_charge > 21
+            }" > {{chargecomplet.novembre_charge}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': chargecomplet.decembre_charge <= 6,
+              'bg-warning text-dark': chargecomplet.decembre_charge <= 15,
+              'bg-info text-white': chargecomplet.decembre_charge <= 20,
+              'bg-success text-white': chargecomplet.decembre_charge == 21,
+              'bg-dark text-white': chargecomplet.decembre_charge > 21
+            }" > {{chargecomplet.decembre_charge}}</td>
+          </tr>
+          </ng-container>
+          <tr class="active-row">
+            <th>Moyenne</th>
+            <td [ngClass]="{
+              'bg-danger text-white': totaljanvier <= 6,
+              'bg-warning text-dark': totaljanvier <= 15,
+              'bg-info text-white': totaljanvier <= 20,
+              'bg-success text-white': totaljanvier == 21,
+              'bg-dark text-white': totaljanvier > 21
+            }" > {{totaljanvier}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': totalfevrier <= 6,
+              'bg-warning text-dark': totalfevrier <= 15,
+              'bg-info text-white': totalfevrier <= 20,
+              'bg-success text-white': totalfevrier == 21,
+              'bg-dark text-white': totalfevrier > 21
+            }" > {{totalfevrier}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': totalmars <= 6,
+              'bg-warning text-dark': totalmars <= 15,
+              'bg-info text-white': totalmars <= 20,
+              'bg-success text-white': totalmars == 21,
+              'bg-dark text-white': totalmars > 21
+            }" > {{totalmars}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': totalavril <= 6,
+              'bg-warning text-dark': totalavril <= 15,
+              'bg-info text-white': totalavril <= 20,
+              'bg-success text-white': totalavril == 21,
+              'bg-dark text-white': totalavril > 21
+            }" > {{totalavril}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': totalmai <= 6,
+              'bg-warning text-dark': totalmai <= 15,
+              'bg-info text-white': totalmai <= 20,
+              'bg-success text-white': totalmai == 21,
+              'bg-dark text-white': totalmai > 21
+            }" > {{totalmai}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': totaljuin <= 6,
+              'bg-warning text-dark': totaljuin <= 15,
+              'bg-info text-white': totaljuin <= 20,
+              'bg-success text-white': totaljuin == 21,
+              'bg-dark text-white': totaljuin > 21
+            }" > {{totaljuin}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': totaljuillet <= 6,
+              'bg-warning text-dark': totaljuillet <= 15,
+              'bg-info text-white': totaljuillet <= 20,
+              'bg-success text-white': totaljuillet == 21,
+              'bg-dark text-white': totaljuillet > 21
+            }" > {{totaljuillet}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': totalaout <= 6,
+              'bg-warning text-dark': totalaout <= 15,
+              'bg-info text-white': totalaout <= 20,
+              'bg-success text-white': totalaout == 21,
+              'bg-dark text-white': totalaout > 21
+            }" > {{totalaout}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': totalseptembre <= 6,
+              'bg-warning text-dark': totalseptembre <= 15,
+              'bg-info text-white': totalseptembre <= 20,
+              'bg-success text-white': totalseptembre == 21,
+              'bg-dark text-white': totalseptembre > 21
+            }" > {{totalseptembre}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': totaloctobre <= 6,
+              'bg-warning text-dark': totaloctobre <= 15,
+              'bg-info text-white': totaloctobre <= 20,
+              'bg-success text-white': totaloctobre == 21,
+              'bg-dark text-white': totaloctobre > 21
+            }" > {{totaloctobre}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': totalnovembre <= 6,
+              'bg-warning text-dark': totalnovembre <= 15,
+              'bg-info text-white': totalnovembre < 20,
+              'bg-success text-white': totalnovembre == 21,
+              'bg-dark text-white': totalnovembre > 21
+            }" > {{totalnovembre}}</td>
+            <td [ngClass]="{
+              'bg-danger text-white': totaldecembre <= 6,
+              'bg-warning text-dark': totaldecembre <= 15,
+              'bg-info text-white': totaldecembre <= 20,
+              'bg-success text-white': totaldecembre == 21,
+              'bg-dark text-white': totaldecembre > 21
+            }" > {{totaldecembre}}</td>
+
+
+          </tr>
+        </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+
+
+  </div>
+  </div>
+  </div>
+
+  <div *ngIf="displaypercent">
+  <div class="col-lg-12">
+  <div class="card card-default">
+  <div class="container-fluid">
+    <div class="card-header card-header-border-bottom">
+    <h1>Tableau Prévision de charge (%)</h1>
+    </div>
+    <div class="card-body">
+    <div class="table-responsive">
+    <table id="excel-table2" class="table table-bordered">
+      <caption>Liste des charges utilisateurs pour l'année {{monannee}}</caption>
+      <thead class="thead-dark">
+        <tr>
+          <th></th>
+          <th>Janvier  </th>
+          <th>Février  </th>
+          <th>Mars     </th>
+          <th>Avril    </th>
+          <th>Mai      </th>
+          <th>Juin     </th>
+          <th>Juillet     </th>
+          <th>Aout     </th>
+          <th>Septembre</th>
+          <th>Octobre  </th>
+          <th>Novembre </th>
+          <th>Decembre </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let chargecomplet of chargecomplets; let index=index">
+        <tr class="active-row">
+          <th>
+          {{ chargecomplet.fk_utilisateur_id }}
+          </th>
+
+
+          <td [ngClass]="{
+            'bg-danger text-white': chargecomplet.janvier_charge <= 30,
+            'bg-warning text-dark': chargecomplet.janvier_charge <= 70,
+            'bg-info text-white': chargecomplet.janvier_charge <= 99,
+            'bg-success text-white': chargecomplet.janvier_charge == 100,
+            'bg-dark text-white': chargecomplet.janvier_charge > 100
+          }" > {{chargecomplet.janvier_charge}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': chargecomplet.fevrier_charge <= 30,
+            'bg-warning text-dark': chargecomplet.fevrier_charge <= 70,
+            'bg-info text-white': chargecomplet.fevrier_charge <= 99,
+            'bg-success text-white': chargecomplet.fevrier_charge == 100,
+            'bg-dark text-white': chargecomplet.fevrier_charge > 100
+          }" > {{chargecomplet.fevrier_charge}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': chargecomplet.mars_charge <= 30,
+            'bg-warning text-dark': chargecomplet.mars_charge <= 70,
+            'bg-info text-white': chargecomplet.mars_charge <= 99,
+            'bg-success text-white': chargecomplet.mars_charge == 100,
+            'bg-dark text-white': chargecomplet.mars_charge > 100
+          }" > {{chargecomplet.mars_charge}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': chargecomplet.avril_charge <= 30,
+            'bg-warning text-dark': chargecomplet.avril_charge <= 70,
+            'bg-info text-white': chargecomplet.avril_charge <= 99,
+            'bg-success text-white': chargecomplet.avril_charge == 100,
+            'bg-dark text-white': chargecomplet.avril_charge > 100
+          }" > {{chargecomplet.avril_charge}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': chargecomplet.mai_charge <= 30,
+            'bg-warning text-dark': chargecomplet.mai_charge <= 70,
+            'bg-info text-white': chargecomplet.mai_charge <= 99,
+            'bg-success text-white': chargecomplet.mai_charge == 100,
+            'bg-dark text-white': chargecomplet.mai_charge > 100
+          }" > {{chargecomplet.mai_charge}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': chargecomplet.juin_charge <= 30,
+            'bg-warning text-dark': chargecomplet.juin_charge <= 70,
+            'bg-info text-white': chargecomplet.juin_charge <= 99,
+            'bg-success text-white': chargecomplet.juin_charge == 100,
+            'bg-dark text-white': chargecomplet.juin_charge > 100
+          }" > {{chargecomplet.juin_charge}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': chargecomplet.juillet_charge <= 30,
+            'bg-warning text-dark': chargecomplet.juillet_charge <= 70,
+            'bg-info text-white': chargecomplet.juillet_charge <= 99,
+            'bg-success text-white': chargecomplet.juillet_charge == 100,
+            'bg-dark text-white': chargecomplet.juillet_charge > 100
+          }" > {{chargecomplet.juillet_charge}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': chargecomplet.aout_charge <= 30,
+            'bg-warning text-dark': chargecomplet.aout_charge <= 70,
+            'bg-info text-white': chargecomplet.aout_charge <= 99,
+            'bg-success text-white': chargecomplet.aout_charge == 100,
+            'bg-dark text-white': chargecomplet.aout_charge > 100
+          }" > {{chargecomplet.aout_charge}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': chargecomplet.septembre_charge <= 30,
+            'bg-warning text-dark': chargecomplet.septembre_charge <= 70,
+            'bg-info text-white': chargecomplet.septembre_charge <= 99,
+            'bg-success text-white': chargecomplet.septembre_charge == 100,
+            'bg-dark text-white': chargecomplet.septembre_charge > 100
+          }" > {{chargecomplet.septembre_charge}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': chargecomplet.octobre_charge <= 30,
+            'bg-warning text-dark': chargecomplet.octobre_charge <= 70,
+            'bg-info text-white': chargecomplet.octobre_charge <= 99,
+            'bg-success text-white': chargecomplet.octobre_charge == 100,
+            'bg-dark text-white': chargecomplet.octobre_charge > 100
+          }" > {{chargecomplet.octobre_charge}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': chargecomplet.novembre_charge <= 30,
+            'bg-warning text-dark': chargecomplet.novembre_charge <= 70,
+            'bg-info text-white': chargecomplet.novembre_charge <= 99,
+            'bg-success text-white': chargecomplet.novembre_charge == 100,
+            'bg-dark text-white': chargecomplet.novembre_charge > 100
+          }" > {{chargecomplet.novembre_charge}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': chargecomplet.decembre_charge <= 30,
+            'bg-warning text-dark': chargecomplet.decembre_charge <= 70,
+            'bg-info text-white': chargecomplet.decembre_charge <= 99,
+            'bg-success text-white': chargecomplet.decembre_charge == 100,
+            'bg-dark text-white': chargecomplet.decembre_charge > 100
+          }" > {{chargecomplet.decembre_charge}}</td>
+        </tr>
+        </ng-container>
+        <tr class="active-row">
+          <th>Moyenne</th>
+          <td [ngClass]="{
+            'bg-danger text-white': totalpercentjanvier <= 30,
+            'bg-warning text-dark': totalpercentjanvier <= 70,
+            'bg-info text-white': totalpercentjanvier <= 99,
+            'bg-success text-white': totalpercentjanvier == 100,
+            'bg-dark text-white': totalpercentjanvier > 100
+          }" > {{totalpercentjanvier}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': totalpercentfevrier <= 30,
+            'bg-warning text-dark': totalpercentfevrier <= 70,
+            'bg-info text-white': totalpercentfevrier <= 99,
+            'bg-success text-white': totalpercentfevrier == 100,
+            'bg-dark text-white': totalpercentfevrier > 100
+          }" > {{totalpercentfevrier}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': totalpercentmars <= 30,
+            'bg-warning text-dark': totalpercentmars <= 70,
+            'bg-info text-white': totalpercentmars <= 99,
+            'bg-success text-white': totalpercentmars == 100,
+            'bg-dark text-white': totalpercentmars > 100
+          }" > {{totalpercentmars}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': totalpercentavril <= 30,
+            'bg-warning text-dark': totalpercentavril <= 70,
+            'bg-info text-white': totalpercentavril <= 99,
+            'bg-success text-white': totalpercentavril == 100,
+            'bg-dark text-white': totalpercentavril > 100
+          }" > {{totalpercentavril}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': totalpercentmai <= 30,
+            'bg-warning text-dark': totalpercentmai <= 70,
+            'bg-info text-white': totalpercentmai <= 99,
+            'bg-success text-white': totalpercentmai == 100,
+            'bg-dark text-white': totalpercentmai > 100
+          }" > {{totalpercentmai}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': totalpercentjuin <= 30,
+            'bg-warning text-dark': totalpercentjuin <= 70,
+            'bg-info text-white': totalpercentjuin <= 99,
+            'bg-success text-white': totalpercentjuin == 100,
+            'bg-dark text-white': totalpercentjuin > 100
+          }" > {{totalpercentjuin}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': totalpercentjuillet <= 30,
+            'bg-warning text-dark': totalpercentjuillet <= 70,
+            'bg-info text-white': totalpercentjuillet <= 99,
+            'bg-success text-white': totalpercentjuillet == 100,
+            'bg-dark text-white': totalpercentjuillet > 100
+          }" > {{totalpercentjuillet}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': totalpercentaout <= 30,
+            'bg-warning text-dark': totalpercentaout <= 70,
+            'bg-info text-white': totalpercentaout <= 99,
+            'bg-success text-white': totalpercentaout == 100,
+            'bg-dark text-white': totalpercentaout > 100
+          }" > {{totalpercentaout}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': totalpercentseptembre <= 30,
+            'bg-warning text-dark': totalpercentseptembre <= 70,
+            'bg-info text-white': totalpercentseptembre <= 99,
+            'bg-success text-white': totalpercentseptembre == 100,
+            'bg-dark text-white': totalpercentseptembre > 100
+          }" > {{totalpercentseptembre}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': totalpercentoctobre <= 30,
+            'bg-warning text-dark': totalpercentoctobre <= 70,
+            'bg-info text-white': totalpercentoctobre <= 99,
+            'bg-success text-white': totalpercentoctobre == 100,
+            'bg-dark text-white': totalpercentoctobre > 100
+          }" > {{totalpercentoctobre}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': totalpercentnovembre <= 30,
+            'bg-warning text-dark': totalpercentnovembre <= 70,
+            'bg-info text-white': totalpercentnovembre <= 99,
+            'bg-success text-white': totalpercentnovembre == 100,
+            'bg-dark text-white': totalpercentnovembre > 100
+          }" > {{totalpercentnovembre}}</td>
+          <td [ngClass]="{
+            'bg-danger text-white': totalpercentdecembre <= 30,
+            'bg-warning text-dark': totalpercentdecembre <= 70,
+            'bg-info text-white': totalpercentdecembre <= 99,
+            'bg-success text-white': totalpercentdecembre == 100,
+            'bg-dark text-white': totalpercentdecembre > 100
+          }" > {{totalpercentdecembre}}</td>
+        </tr>
+
+
+      </tbody>
+
+    </table>
+    </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<div class="col-lg-12">
+  <div class="card card-default">
+  <form [formGroup]="NgForm" (ngSubmit)="onSubmit2()">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <div class="card-header card-header-border-bottom">
+          <h4>Selectionner une année</h4>
+          </div>
+          <label for="monannee"></label>
+          <input class="form-control" type="text" formControlName="monannee" placeholder="monannee" id="monannee"
+            [ngClass]="{ 'is-invalid': submitted && f.etape.errors }">
+          <div *ngIf="submitted && f.etape.errors" class="invalid-feedback">
+            <div *ngIf="f.etape.errors.required">
+              Champ obligatoire
+            </div>
+          </div>
+        </div>
+        </div>
+        <br>
+        <br>
+
+        <div class="col-sm-12">
+        <label class="switch">
+          <input type="checkbox" formControlName="monchoix" placeholder="monchoix" id="monchoix">
+          <span class="slider round"></span>
+        </label>
+
+        <br>
+        <br>
+
+         <button class="btn btn-primary" type="submit">Enregistrer</button>
+         <br>
+         <br>
+         <button type="button" (click)="exportexcel()" class="btn btn-primary">Exporter</button>
+         <br>
+         <br>
+         </div>
+
+
+</div>
+</form>
+</div>
+</div>

@@ -1,0 +1,485 @@
+<div class="col-lg-12">
+  <div class="card card-default">
+    <div class="card-header card-header-border-bottom">
+      <h1>Résumé du projet : {{ tableauProjets && tableauProjets[0].nom_demande }}</h1>
+    </div>
+    <br />
+
+
+    <!-- S'affiche que si le projet est à un état strictement plus petit que  l'état 3 (demande chiffrée) -->
+    <div *ngIf="!isApresChiffrage()">
+
+      <!-- S'affiche si le projet est à un état différent de 1 (Demande transmise) SINON renvoie vers le ng-template Popup-->
+      <div *ngIf="!verificationPopup(); else Popup">
+        <button style="margin-left: 2%" class="btn btn-lg btn-primary" (click)="onClickRouteChiffrage()">Réaliser le
+          chiffrage</button>
+      </div>
+
+      <!-- Correspond au else du ngif juste au dessus -->
+      <ng-template #Popup>
+        <div>
+          <!-- Modal de confirmation de changement d'état de 1 à 2 -->
+          <button type="submit" data-toggle="modal" data-target="#exampleModal" style="margin-left: 2%"
+            class="btn btn-lg btn-primary">Réaliser le chiffrage</button>
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Confirmation de chiffrage</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Voulez-vous réellement effectuer le chiffrage de cette demande de projet ?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    (click)="onClickRouteChiffrage()">Valider</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+    </div>
+
+    <br />
+    <div class="col-lg-12">
+      <div class="card card-default">
+        <div class="card-header card-header-border-bottom">
+          <h2>Demande client</h2>
+        </div>
+        <div class="card-body">
+
+          <!-- S'affiche si l'état du projet est différent de 3 (demande chiffrée) SINON renvoie vers le ng-template validationchiffrageadmin -->
+          <div *ngIf="!isDemandeChiffre(); else validationchiffrageadmin">
+
+            <!-- Ne s'affiche que si le projet a une information de validation de chiffrage -->
+            <div *ngIf="isValidationChiffrage()">
+              <h4 style="color:red;">Remarque chiffrage : {{ tableauProjets && tableauProjets[0].validation_chiffrage }}
+              </h4>
+              <br>
+            </div>
+
+            <!-- Ne s'affiche que si le projet a un commentaire du client sur le chiffrage -->
+            <div *ngIf="isRemarqueValidation()">
+              <h4 style="color:black;">Commentaire du client sur le chiffrage :
+                {{ tableauProjets && tableauProjets[0].remarque_validation }}</h4>
+              <br>
+            </div>
+          </div>
+
+          <!-- Correspond au else du ngif plus haut -->
+          <ng-template #validationchiffrageadmin>
+
+            <!-- S'affiche si l'utilisateur qui a créer la demande de projet possède le rôle 2 (Admin) SINON renvoie vers le ng-template validationchiffrageclient -->
+            <div *ngIf="isUtilisateurAdmin();else validationchiffrageclient">
+              <h4 style="color:red;">En attente de votre validation du chiffrage (Admin)</h4>
+              <br>
+            </div>
+          </ng-template>
+
+          <!-- Correspond au else du ngif juste au dessus -->
+          <ng-template #validationchiffrageclient>
+            <h4 style="color:red;">En attente de la validation du chiffrage par le client</h4>
+            <br>
+          </ng-template>
+
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">
+                  Nom du Demandeur
+                </th>
+                <th scope="col">
+                  Créateur du Projet
+                </th>
+                <th scope="col">
+                  Nom Projet
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let tableauProjet of tableauProjets"> <!-- Boucle for sur le tableau tableauProjets contenu dans le fichier .ts -->
+                <tr>
+                  <td>
+                    {{ tableauProjet.nom_demandeur }}
+                  </td>
+                  <td>
+                    {{ tableauProjet.login_utilisateur }}
+                  </td>
+                  <td>
+                    {{ tableauProjet.nom_demande }}
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">
+                  Code NOP
+                </th>
+                <th scope="col">
+                  Fonction
+                </th>
+                <th scope="col">
+                  Reference Client
+                </th>
+                <th scope="col">
+                  Reference Interne
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let tableauProjet of tableauProjets"> <!-- Boucle for sur le tableau tableauProjets contenu dans le fichier .ts -->
+                <tr>
+                  <td>
+                    {{ tableauProjet.code_nop }}
+                  </td>
+                  <td>
+                    {{ tableauProjet.fonction }}
+
+                  </td>
+                  <td>
+                    {{ tableauProjet.reference_client }}
+                  </td>
+                  <td>
+                    {{ tableauProjet.reference_interne }}
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <!--
+                  <th colspan="1">
+                      Nom Projet
+                  </th>
+                   -->
+                <th scope="col">
+                  Etat
+                </th>
+                <th scope="col">
+                  Date de Demande
+                </th>
+                <th scope="col">
+                  Date de Chiffrage
+                </th>
+                <th scope="col">
+                  Date de Démarrage
+                </th>
+                <th scope="col">
+                  Date de Livraison
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let tableauProjet of tableauProjets"> <!-- Boucle for sur le tableau tableauProjets contenu dans le fichier .ts -->
+                <tr>
+                  <!--
+                  <td>
+                      {{ tableauProjet.nom_demande }}
+                  </td>
+                   -->
+                  <td>
+                    {{ tableauProjet.nom_etat }}
+                  </td>
+                  <td>
+                    {{ tableauProjet.date_demande | date: 'dd/MM/yyyy' }}
+                  </td>
+                  <td>
+                    {{ tableauProjet.date_chiffrage | date: 'dd/MM/yyyy' }}
+                  </td>
+                  <td>
+                    {{ tableauProjet.date_demarrage | date: 'dd/MM/yyyy' }}
+                  </td>
+                  <td>
+                    {{ tableauProjet.date_livraison | date: 'dd/MM/yyyy' }}
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">
+                  Périmètre
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let tableauPerimetres of tableauPerimetres"> <!-- Boucle for sur le tableau tableauPerimetres contenu dans le fichier .ts -->
+                <tr>
+                  <td>
+                    {{ tableauPerimetres.nom_perimetre }}
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">
+                  Description
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <ng-container>{{ tableauProjets && tableauProjets[0].description }}
+                  </ng-container>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ne s'affiche que si le projet est à un état égal ou supérieur à l'état 2 (Traitement en cours)-->
+    <div *ngIf="isAfficherChiffrage()">
+      <div class="col-lg-12">
+        <div class="card card-default">
+          <div class="card-header card-header-border-bottom">
+            <h2>Chiffrage</h2>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">
+                    Etape
+                  </th>
+                  <th scope="col">
+                    Sous Etape
+                  </th>
+                  <th scope="col">
+                    Acteur
+                  </th>
+                  <th scope="col">
+                    Charge
+                  </th>
+                  <th scope="col">
+                    Grade
+                  </th>
+                  <th scope="col">
+                    TJM
+                  </th>
+                  <th scope="col">
+                    Total
+                  </th>
+                  <th scope="col">
+                    Remarques
+                  </th>
+                  <!-- <th scope="col">
+                            Totaux
+                        </th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let ligneChiffrageProjet of ligneChiffrageProjets"> <!-- Boucle for sur le tableau ligneChiffrageProjets contenu dans le fichier .ts -->
+                  <tr>
+                    <td>
+                      {{ ligneChiffrageProjet.nom_etape }}
+                    </td>
+                    <td>
+                      {{ ligneChiffrageProjet.nom_sous_etape }}
+                    </td>
+                    <td>
+                      {{ ligneChiffrageProjet.nom_acteur }}
+                    </td>
+                    <td>
+                      {{ ligneChiffrageProjet.valeur_charge }}
+                    </td>
+                    <td>
+                      {{ ligneChiffrageProjet.nom_grade }}
+                    </td>
+                    <td>
+                      {{ ligneChiffrageProjet.valeur_tjm}}
+                    </td>
+                    <td>
+                      {{ ligneChiffrageProjet.valeur_total }}
+                    </td>
+                    <td>
+                      {{ ligneChiffrageProjet.remarque }}
+                    </td>
+
+                    <!-- <td>{{ ligneChiffrageProjet.Total }}</td> -->
+                  </tr>
+
+
+                </ng-container>
+
+              </tbody>
+
+            </table>
+
+            <!-- Si le projet est à un état égal ou supérieur à l'état 3 (demande chiffrée) alors on affiche le prix total du projet-->
+            <h2 *ngIf="isApresChiffrage()">prix total du projet :
+              {{ ligneChiffrageProjets && ligneChiffrageProjets[0].Total }} €</h2>
+
+
+
+            <!-- Ne s'affiche que si le projet est à l'état 3 et que le créateur du projet possède le rôle 2 (Admin) -->
+            <div style="margin-top:2%" *ngIf="isDemandeChiffre() && isUtilisateurAdmin()">
+
+              <!-- Modal (popup) d'acceptation du chiffrage -->
+              <button type="submit" data-toggle="modal" data-target="#exampleModal3" class="btn btn-success">Accepter le
+                Chiffrage</button>
+              <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel3" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel3">Confirmation d'acceptation du chiffrage</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Voulez-vous vraiment accepter le chiffrage?
+
+                      <div>
+                        <button type="button" (click)="onClickValider('accepter')" class="btn btn-primary btn-default"
+                          data-dismiss="modal">Accepter</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+              <!-- Modal (popup) d'acceptation du chiffrage avec réserve -->
+              <button type="submit" (click)='reinitialiseCommentaire()' data-toggle="modal" data-target="#exampleModal2"
+                style="margin-left: 2%" class="btn btn-primary">Accepter le Chiffrage avec réserve</button>
+              <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel2">Confirmation d'acceptation avec réserve du
+                        chiffrage</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Veuillez entrez un commentaire pour justifier votre réserve.
+
+
+                      <!-- Formulaire pour le commentaire de réserve du client -->
+                      <form [formGroup]="formulaireForm">
+                        <h2>Commentaire</h2>
+                        <div class="form-group">
+                          
+                          <textarea name="monTexte" formControlName="commentaire" class="form-control"
+                            id="exampleFormControlTextarea2" rows="3" placeholder="..."
+                            [ngClass]="{ 'is-invalid': submitted && f.commentaire.errors }"></textarea> <!-- Gestion d'erreurs -->
+                          <div *ngIf="submitted && f.commentaire.errors" class="invalid-feedback"> <!-- Gestion d'erreurs -->
+                            <div *ngIf="f.commentaire.errors.required">Le champ Formulaire est requis</div> <!-- Gestion d'erreurs -->
+                          </div>
+                        </div>
+
+                        <br>
+                      </form>
+                      <div class="form-footer pt-5 border-top">
+                        <div *ngIf="!f.commentaire.errors"> <!-- Gestion d'erreurs -->
+                          <button type="button" (click)="onClickValider('réserve')" class="btn btn-primary btn-default"
+                            data-dismiss="modal">Envoyer</button>
+                        </div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+              <!-- Modal (popup) de refus du chiffrage -->
+              <button type="submit" (click)='reinitialiseCommentaire()' data-toggle="modal" data-target="#exampleModal"
+                style="margin-left: 2%" class="btn btn-danger ">Refuser le chiffrage</button>
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Confirmation de refus du chiffrage</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Veuillez entrez un commentaire pour justifier votre refus.
+
+
+                      <!-- Formulaire pour le commentaire de refus du client -->
+                      <form [formGroup]="formulaireForm">
+                        <h2>Commentaire</h2>
+                        <div class="form-group">
+
+                          <textarea name="monTexte" formControlName="commentaire" class="form-control"
+                            id="exampleFormControlTextarea1" rows="3" placeholder="..."
+                            [ngClass]="{ 'is-invalid': submitted && f.commentaire.errors }"></textarea> <!-- Gestion d'erreurs -->
+                          <div *ngIf="submitted && f.commentaire.errors" class="invalid-feedback"> <!-- Gestion d'erreurs -->
+                            <div *ngIf="f.commentaire.errors.required">Le champ Formulaire est requis</div> <!-- Gestion d'erreurs -->
+                          </div>
+                        </div>
+
+                        <br>
+                      </form>
+                      <div class="form-footer pt-5 border-top">
+                        <div *ngIf="!f.commentaire.errors"> <!-- Gestion d'erreurs -->
+                          <button type="button" (click)="onClickValider('refus')" class="btn btn-primary btn-default"
+                            data-dismiss="modal">Envoyer</button>
+                        </div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

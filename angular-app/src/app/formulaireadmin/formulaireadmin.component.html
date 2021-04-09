@@ -1,0 +1,439 @@
+<div *ngIf="isMontrerFormulaireChiffrage(lignechiffrageprojets && lignechiffrageprojets[0]?.fk_etat_id)">
+  <div class="col-lg-12">
+    <div class="card card-default">
+      <div class="card-header card-header-border-bottom">
+        <h1>Récapitulation des sous étapes rentrées</h1>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">
+                Etape
+              </th>
+              <th scope="col">
+                Sous Etape
+              </th>
+              <th scope="col">
+                Acteur
+              </th>
+              <th scope="col">
+                Mois
+              </th>
+              <th scope="col">
+                Charge
+              </th>
+              <th scope="col">
+                Grade
+              </th>
+              <th scope="col">
+                TJM
+              </th>
+              <th scope="col">
+                Total
+              </th>
+              <th scope="col">
+                Remarques
+              </th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let lignechiffrageprojet of lignechiffrageprojets; let index=index"> <!-- Boucle for sur le tableau lignechiffrageprojets contenu dans le fichier .ts -->
+              <tr>
+                <td>
+                  <p>
+                    {{ lignechiffrageprojet.nom_etape }}
+                  </p>
+                </td>
+                <td>
+                  {{ lignechiffrageprojet.nom_sous_etape }}
+                </td>
+                <td>
+                  {{ lignechiffrageprojet.nom_acteur }}
+                </td>
+                <td>
+                  {{ lignechiffrageprojet.mois_chiffrage }}
+                </td>
+                <td>
+                  {{ lignechiffrageprojet.valeur_charge }}
+                </td>
+                <td>
+                  {{ lignechiffrageprojet.nom_grade }}
+                </td>
+                <td>
+                  {{ lignechiffrageprojet.valeur_tjm}}
+                </td>
+                <td>
+                  {{ lignechiffrageprojet.valeur_total }}
+                </td>
+                <td>
+                  {{ lignechiffrageprojet.remarque }}
+                </td>
+                <td>
+                  <div>
+                    <!--
+									<button type="button" style="width: 110px ; margin-left: 2%" class="mb-1 btn btn-primary" (click)="deleteEtape(lignechiffrageprojet.id_ligne)">Supprimer</button>
+                   -->
+
+                    <!-- Modal (comme un popup) de confirmation de suppression d'une ligne de chiffrage -->
+                    <button type="button" data-toggle="modal" data-target="#supprimer" style="width: 50px;"
+                      class="mb-1 btn btn-danger" (click)="recuperationID(lignechiffrageprojet.id_ligne)"><i
+                        class=" mdi mdi-close-circle-outline mr-1"></i></button>
+                    <div class="modal fade" id="supprimer" tabindex="-1" role="dialog" aria-labelledby="supprimerLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="supprimerLabel">
+                              Confirmation de suppresion
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                          </div>
+                          <div class="modal-body">
+                            Voulez-vous réellement supprimer cette ligne sous étape du
+                            chiffrage ?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                              (click)="SupprimerLigne(id2)">Valider</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <!-- Modal (popup) de modification d'une ligne de chiffrage -->
+                    <button type="button" data-toggle="modal" data-target="#modifier"
+                      style="width: 50px ; margin-left: 2% ;" class="mb-1 btn btn-primary"
+                      (click)="recuperationID(lignechiffrageprojet.id_ligne)" (click)="modifEtape(id2, index)"><i
+                        class="mdi mdi-pencil-box"></i></button>
+
+                    <button id="openModal2" [hidden]="true" type="button" class="btn btn-primary" data-toggle="modal"
+                      data-target="#exampleModal2"> Launch demo modal
+                    </button>
+
+                    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                      aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header modal-header-success">
+                            <h5 class="modal-title" id="exampleModalLabel2">
+                              Modification prête
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                          </div>
+                          <div class="modal-body">
+                            La prochaine modification va modifier la ligne choisie
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+            <br>
+          </tbody>
+
+        </table>
+        <font size="5"><strong>Coût total = {{calcul}} €</strong></font>
+
+
+
+
+      </div>
+      <!-- <div class="card-footer pb-0 pt-3">
+			<jw-pagination [items]="lignechiffrageprojets" (changePage)="onChangePage($event)"></jw-pagination>
+		</div> -->
+    </div>
+  </div>
+  <div class="col-lg-12">
+    <div class="card card-default">
+      <div class="card-header  justify-content-between">
+        <h1>Formulaire de chiffrage </h1>
+        <br>
+      </div>
+      <div class="form-footer pt-5 border-top"></div>
+      <div class="card-body">
+        <form [formGroup]="sousetapeForm" (ngSubmit)="formulaire()">
+          <h2>Veuillez remplir les champs ci-dessous : </h2>
+          <br>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="fname">Etape :</label>
+                <input class="form-control" type="text" formControlName="etape" placeholder="etape" id="etape"
+                  [ngClass]="{ 'is-invalid': submitted && f.etape.errors }">
+                <div *ngIf="submitted && f.etape.errors" class="invalid-feedback">
+                  <div *ngIf="f.etape.errors.required">
+                    Champ obligatoire
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="lname">Sous etape :</label>
+                <input class="form-control" type="text" formControlName="sousetape" placeholder="sousetape"
+                  id="sousetape" [ngClass]="{ 'is-invalid': submitted && f.sousetape.errors }">
+                <div *ngIf="submitted && f.sousetape.errors" class="invalid-feedback">
+                  <div *ngIf="f.sousetape.errors.required">
+                    Champ obligatoire
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="State">annee :</label>
+                <input class="form-control" type="text" formControlName="annee" placeholder="annee"
+                  id="annee" [ngClass]="{ 'is-invalid': submitted && f.annee.errors }">
+                <div *ngIf="submitted && f.annee.errors" class="invalid-feedback">
+                  <div *ngIf="f.annee.errors.required">
+                    Champ obligatoire
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="State">Acteur</label>
+                    <select class="form-control" style="margin-left: 1%;" name="acteur" id="acteur"
+                      formControlName="acteur" [ngClass]="{ 'is-invalid': submitted && f.acteur.errors }">
+                    <ng-container *ngFor="let utilisateur of utilisateurs; let i = index">
+                      <td>
+                        <a class="text-dark" [routerLink]="['/utilisateur', utilisateur.id_utilisateur]">{{ utilisateur.login_utilisateur }}</a>
+
+                      </td>
+
+                        <option>{{ utilisateur.login_utilisateur }}</option>
+                        <!-- <option value="Admin">Admin</option> -->
+                   </ng-container>
+                   </select>
+
+
+
+
+                    <!--<label for="State">Acteur</label>
+                    <input class="form-control" type="text" formControlName="acteur" placeholder="acteur" id="acteur"
+                      [ngClass]="{ 'is-invalid': submitted && f.acteur.errors }">
+                    <div *ngIf="submitted && f.acteur.errors" class="invalid-feedback">
+                      <div *ngIf="f.acteur.errors.required">
+                        Champ obligatoire
+                      </div>
+                    </div> -->
+
+                  </div>
+                </div>
+
+
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="State">Mois execution</label>
+                    <select class="form-control" style="margin-left: 1%;" name="mois" id="mois"
+                      formControlName="mois" [ngClass]="{ 'is-invalid': submitted && f.mois.errors }">
+                    <option>janvier</option>
+                    <option>fevrier</option>
+                    <option>mars</option>
+                    <option>avril</option>
+                    <option>mai</option>
+                    <option>juin</option>
+                    <option>juillet</option>
+                    <option>aout</option>
+                    <option>septembre</option>
+                    <option>octobre</option>
+                    <option>novembre</option>
+                    <option>decembre</option>
+                   </select>
+                    </div>
+                  </div>
+
+
+
+
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="Zip">Charge (./jours) </label>
+                    <!-- <input #box (keyup)="onKey(box.value)" class="form-control" type="number"  onkeydown="return (event.keyCode !== 69)&&(event.keyCode !== 109)&&(event.keyCode !== 54)" formControlName="charge" placeholder="./jours" id="charge" [ngClass]="{ 'is-invalid': submitted && f.charge.errors }"> -->
+                    <!-- <p>{{values}}</p> -->
+                    <input (input)="charge = $event.target.value" class="form-control" type="number"
+                      onkeydown="return (event.keyCode !== 69) &&(event.keyCode !== 109)&&(event.keyCode !== 54) "
+                      formControlName="charge" placeholder="./jours" id="charge"
+                      [ngClass]="{ 'is-invalid': submitted && f.charge.errors }">
+
+                    <div *ngIf="submitted && f.charge.errors" class="invalid-feedback">
+                      <div *ngIf="f.charge.errors.required">
+                        Champ obligatoire, Chiffre/Nombre uniquement
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="State">Grade</label>
+
+
+                    <input class="form-control" type="text" formControlName="grade" placeholder="grade" id="grade"
+                      [ngClass]="{ 'is-invalid': submitted && f.grade.errors }">
+                    <div *ngIf="submitted && f.grade.errors" class="invalid-feedback">
+                      <div *ngIf="f.grade.errors.required">
+                        Champ obligatoire
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="Zip">TJM (.€)</label>
+                    <!-- <input #box2 (keyup)="onKey2(box2.value)"class="form-control" type="number"  onkeydown="return (event.keyCode !== 69) &&(event.keyCode !== 109)&&(event.keyCode !== 54) " formControlName="tjm" placeholder=".€" id="tjm"[ngClass]="{ 'is-invalid': submitted && f.tjm.errors }" > -->
+                    <!-- <p>{{values2}}</p> -->
+                    <input (input)="tjm = $event.target.value" class="form-control" type="number"
+                      onkeydown="return (event.keyCode !== 69) &&(event.keyCode !== 109)&&(event.keyCode !== 54) "
+                      formControlName="tjm" placeholder=".€" id="tjm"
+                      [ngClass]="{ 'is-invalid': submitted && f.tjm.errors }">
+
+                    <div *ngIf="submitted && f.tjm.errors" class="invalid-feedback">
+                      <div *ngIf="f.tjm.errors.required">
+                        Champ obligatoire, Chiffre/Nombre uniquement
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="fname">Total (.€)</label>
+
+
+                <!-- <input  class="form-control" type="number" onkeydown="return (event.keyCode !== 69)&&(event.keyCode !== 109)&&(event.keyCode !== 54)"  min="0"formControlName="total" placeholder="(Chiffre/Nombre) - €" id="total" [ngClass]="{ 'is-invalid': submitted && f.total.errors }"> -->
+                <input [value]="tjm*charge" (input)="total = $event.target.value" disabled="disabled"
+                  class="form-control" type="number"
+                  onkeydown="return (event.keyCode !== 69)&&(event.keyCode !== 109)&&(event.keyCode !== 54)" min="0"
+                  formControlName="total" id="total">
+
+                <!-- <div *ngIf="submitted && f.total.errors" class="invalid-feedback">
+								<div *ngIf="f.total.errors.required">
+									Champ obligatoire, Chiffre/Nombre uniquement
+								</div>
+							</div> -->
+              </div>
+            </div>
+          </div>
+          <h2>Remarques :</h2>
+          <div class="form-group">
+            <textarea name=monTexte formControlName="remarques" class="form-control" id="exampleFormControlTextarea1"
+              rows="3" placeholder="..."></textarea>
+          </div>
+          <br>
+
+
+          <div class="form-footer pt-5 border-top">
+
+
+
+            <button type="submit" class="btn btn-primary btn-default">Sauvegarder une ligne de
+              chiffrage</button>
+            <!-- Button trigger modal -->
+            <button [hidden]="true" type="button" class="btn btn-primary" data-toggle="modal" data-target="#sauvegarder"
+              id="openModal" (click)="sauv()"> Launch demo modal </button>
+            <!-- Modal de confirmation de création d'une ligne de chiffrage-->
+            <div class="modal fade" id="sauvegarder" tabindex="-1" role="dialog" aria-labelledby="sauvegarder"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header modal-header-success">
+                    <h5 class="modal-title" id="sauvegarder">
+                      Mise à jour effectuée !
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                  </div>
+                  <div class="modal-body">
+                    La ligne a bien été ajoutée
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-default">Modifier la ligne</button>
+            <!-- Button trigger modal -->
+            <button [hidden]="true" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modifier"
+              id="openModal55" (click)="modifierTotalChriffrage()"> Launch demo modal </button>
+            <!-- Modal de confirmation de création d'une ligne de chiffrage-->
+            <div class="modal fade" id="modifier" tabindex="-1" role="dialog" aria-labelledby="modifier"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header modal-header-success">
+                    <h5 class="modal-title" id="modifier">
+                      Mise à jour effectuée !
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                  </div>
+                  <div class="modal-body">
+                    La ligne a bien été modifié
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <button style="margin-left: 5%;" class="btn btn-primary btn-default"
+              (click)="onClickRetourResume()">Résumé du projet</button>
+          </div>
+          <br>
+        </form>
+
+        <!-- Modal de confirmation de validation du chiffrage complet -->
+        <button type="submit" data-toggle="modal" data-target="#modifier3" class="btn btn-danger">Déclarer le projet fini
+          </button>
+        <div class="modal fade" id="modifier3" tabindex="-1" role="dialog" aria-labelledby="modifierLabel3"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modifierLabel3">
+                  Confirmation de fin du projet
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+                Voulez-vous vraiment déclarer le projet terminé ?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                  (click)="onClickValiderChiffrage()">Valider</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
