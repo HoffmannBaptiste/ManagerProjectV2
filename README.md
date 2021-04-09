@@ -1,6 +1,6 @@
-# ProjectManager
+# ProjectManagerV2
 Outils de création, de validation et de gestion de projets
-
+Voici la version 2 du logiciel, qui incorpore maintenant un module de gestion des rôle, de contrats et de planning des charges
 
 # Outils et logiciels requis pour l'application
 
@@ -40,7 +40,7 @@ Outils de création, de validation et de gestion de projets
 ### Obtenir les fichiers sources pour le fonctionnement de l'application
 
 ```bash
-git clone https://github.com/AhmedALSGit/ProjectManager.git
+git clone https://github.com/HoffmannBaptiste/ManagerProjectV2.git
 ```
 
 
@@ -194,6 +194,17 @@ express-app_1   | > projetperso@0.0.0 start /app
 express-app_1   | > node /app/servernd.js
 express-app_1   | 
 ```
+
+## Installation sous Windows
+
+Pour installer l'application sur windows, il faut tout d'abord télécharger l'executable docker pour windows.
+
+Puis il faut lancer la commande git clone du repo :
+```bash
+git clone https://github.com/HoffmannBaptiste/ManagerProjectV2.git
+```
+
+Et enfin lancer le docker-compose comme décrit plus haut. Les docker peuvent êtres visualisés via l'interface graphique, ou pareil que CentOS7 via ligne de commandes.
 
 ## Commandes Angular et NodeJS
 
